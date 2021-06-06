@@ -1,0 +1,495 @@
+---
+title:  Taller 1 entrega problema en grupo. MAT3 (estadística) GIN2 2020-2021  - Probabilidad, Variables Aleatorias, Distribuciones
+  Notables.
+author: "Álvaro, Pimentel Lorente; Gastón, Panizza de León; Sergi, Mayol Matos; Alejandro, Rodríguez Arguimbau"
+date: '12 de Abril de 2021'
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+  word_document: default
+urlcolor: blue
+toccolor: blue
+header-includes:
+  \renewcommand{\contentsname}{Contenidos}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Taller1 evaluable. Entrega de problemas
+
+Taller en grupo entregad las soluciones en .Rmd y .html o .pdf. o si lo
+escribidlas de forma manual y escanear el resultado, en un solo fichero.
+
+## Problema 1
+
+Sean $A$ , $B$ y $C$ tres sucesos tales que $P(A)=0.4$, $P(B)=0.4$ y
+$P(A\cup B)=0.6$. Calcular $P(A\cap B)$.
+
+### Solución
+
+$P(A\cap B)=P(A)+P(B)-P(A\cup B)$
+
+$P(A\cap B)=0.4+0.4-0.6=0.2$
+
+## Problema 2
+
+Consideremos la v.a. continua $X$ que tiene por función de densidad para
+a alguna constante $\alpha\in \mathbb{R}$:
+
+$$
+f_X (t)=
+\left\{\begin{array}{ll}
+\alpha \cdot t^4, & \mbox{si } -1 < t <1,
+ \\
+0 & \mbox{ en otro caso}.
+\end{array}\right.
+$$
+
+1.  Calculad $\alpha$ para que $f_X$ sea densidad y especificad su
+    dominio $D_X$.
+2.  Calculad la función de distribución de la v.a. $X$;
+    $F_X(x)=P(X\leq x)$.
+3.  Calculad $E(X)$ y $Var(X)$.
+4.  Calcula en cuantil $0.9$ de $X$.
+
+### Solución
+
+1\.
+
+Para calcular $\alpha$ y que la función sea una función de densidad, hay
+que igualar a 1 la integral definida en el intervalo (−∞,∞) de la
+función.
+
+$\int_{-\infty}^{\infty}\alpha\cdot t^4 dt=1$ $\Rightarrow$
+$\int_{-1}^{1}\alpha\cdot t^4dt =1$ $\Rightarrow$ $\alpha = \frac{5}{2}$
+$D_X = (-1,1)$
+
+Por lo que si $\alpha = \frac{5}{2}$ , será una función de densidad.
+
+2\.
+
+$$
+F_X (t)=P(X\leq t)
+\left\{\begin{array}{ll}
+0 & \mbox{si t} \le -1 
+\\
+\int_{-1}^{t}\alpha\cdot x^4 dx = \alpha\cdot(\frac{t^5}{5}+\frac{1}{5})=\frac{5}{2}\cdot\frac{t^5+1}{5} & \mbox{si } -1 \le t \le 0
+ \\
+\int_{-1}^{0}\alpha\cdot x^4 dx+\int_{0}^{t}\alpha\cdot x^4 dx =\alpha\cdot(\frac{1}{5}+\frac{t^5}{5})=\frac{5}{2}\cdot\frac{t^5+1}{5} & \mbox{si } 0 \le t \le 1
+ \\
+1 & \mbox{si }t \ge 1
+\end{array}\right.
+$$
+
+En definitiva la función es:
+
+$$
+F_X (t)=P(X\leq t)
+\left\{\begin{array}{ll}
+0 & \mbox{si t} \le -1 
+\\
+\frac{t^5+1}{2} & \mbox{si } -1 \le t \le 1
+ \\
+1 & \mbox{si }t \ge 1
+\end{array}\right.
+$$
+
+3\.
+
+$E(X) = \int_{-1}^{1}t\cdot f_X (t)dt = \int_{-1}^{1}\alpha\cdot t^5dt = \alpha\cdot \dfrac{2}{6} = \dfrac{5}{2}\cdot\dfrac{2}{6} = \dfrac{5}{6}$
+
+$Var(X) = \int_{-1}^{1}t^2\cdot f_X (t)dt - E(X)^2=\int_{-1}^{1}t^2\cdot \alpha\cdot t^4dt- E(X)^2 = \dfrac{5}{2}\cdot\dfrac{2}{7}-\dfrac{25}{36} = \dfrac{5}{252}$
+
+4\.
+
+El cuantil 0.9 es el valor $x_{o}$ tal que
+$F_X(x_{o})=P(X \le x_{o})=0.9.$Por lo tanto
+
+$F_X(x_{o}) = \dfrac{x_o^5+1}{2} = 0.9$
+
+así que $x_o^5 = 2 \cdot 0.9 -1$, donde $x_o = 0.96$
+
+## Problema 3
+
+Sea $Y$ una variable discreta con función de probabilidad :
+
+$$
+P_Y(y)=
+\left\{\begin{array}{ll}
+\alpha\cdot\frac{1}{x^2} & \mbox{,si } x=-2,-1,1,2,
+ \\
+0 & \mbox{ en otro caso}.
+\end{array}\right. 
+$$
+
+1.  Hallad la función de distribución $F_Y(y)=P(Y\leq Y)$.
+2.  Calculad $E(Y)$ y $Var(Y)$
+3.  Calculad el cuantil 0.5 de $Y$
+
+### Solución
+
+1\.
+
+Para hallar $\alpha$, usando la propiedad de $\sum_{}^{} P_X (x)=1$
+
+$\alpha\cdot(\dfrac{1}{2}+\dfrac{1}{1}+\dfrac{1}{1}+\dfrac{1}{2})=1$
+
+$\alpha = \dfrac{1}{3}$
+
+$$
+F_Y (y)=P(Y\leq y)
+\left\{\begin{array}{ll}
+\\
+0 & \mbox{si x} < -2 
+\\
+\frac{1}{3}\cdot\frac{1}{x^2} & \mbox{si } -2  \le x <-1,
+ \\
+\frac{1}{3}\cdot\frac{2}{x^2} & \mbox{si } -1 \le x < 1,
+ \\
+\frac{1}{x^2} & \mbox{si } 1 \le x <2,
+ \\
+1 & \mbox{si }2 \le x 
+\end{array}\right.
+$$
+
+2\.
+
+1.  $E(Y) = \sum_{}^{}y\cdot P_Y(y) = \alpha \cdot (-2\cdot\dfrac{1}{(-2)^2}-1\cdot\dfrac{1}{(-1)^2}+1\cdot\dfrac{1}{(1)^2}+2\cdot\dfrac{1}{(2)^2}) = \alpha\cdot 0 = 0$
+
+    $E(Y^2) = \sum_{}^{}y^2\cdot P_Y(y)=\alpha\cdot ((-2)^2\cdot\dfrac{1}{(-2)^2}+(-1)^2\cdot\dfrac{1}{(-1)^2}+1^2\cdot\dfrac{1}{(1)^2}+2^2\cdot\dfrac{1}{(2)^2})=\alpha\cdot4 = \dfrac{1}{3}\cdot4=\dfrac{4}{3}$
+
+2.  $Var(Y) = E(Y^2) - (E(Y))^2 = \dfrac{4}{3}-0^2=\dfrac{4}{3}$
+
+3\.
+
+Para calcular el cuantil 0.5 de $Y,\  F_Y(y)=P(Y\leq y) = 0.5$
+
+$\frac{1}{3}\cdot\frac{1}{y_o^2} = 0.5$
+
+$y_o = 0.85$
+
+$$
+F_Y (y)=P(Y\leq y)
+\left\{\begin{array}{ll}
+\\
+0 & \mbox{si x} < -2 
+\\
+0.0833333 & \mbox{si } -2  \le x <-1,
+ \\
+0.3333333 & \mbox{si } -1 \le x < 1,
+ \\
+1 & \mbox{si } 1 \le x <2,
+ \\
+1 & \mbox{si }2 \le x 
+\end{array}\right.
+$$
+
+$F_Y(y)=\frac{1}{2} = 0.5\Rightarrow y_{0.5}=1$
+
+## Problema 4
+
+Tenemos un dado, bien equilibrado, de doce caras numeradas del 1 al 12
+([dodecaedro dados de rol](https://es.wikipedia.org/wiki/Dados_de_rol)).
+
+1.  Calcular la función de probabilidad de la variables $X=$ número de
+    la cara superior del dado en un lanzamiento, calcular E(X) y
+    $Var(X)$.
+2.  Calcular la función de distribución de $X$ y el cuantil $0.4$.
+3.  Si $Y$ es al v.a.que cuenta el número de veces que tiramos el dado
+    hasta obtener el primer $5$ calcular la función de distribución de
+    $Y$
+4.  ¿Qué valor tienen $E(X)$ y $Var(X)$.
+
+### Solución
+
+$1.$
+
+La función de probabilidad será:
+
+$$
+P(X=x)=
+\left\{\begin{array}{ll}
+\frac{1}{12} &\mbox{si }x=1,2,3,4,5,6,7,8,9,10,11,12
+\\
+0 & \mbox{en otro caso}
+\end{array}\right. 
+$$
+
+La función de esperanza:
+
+$E(X)= \sum_{x=1}^{12} x\cdot P_X(x)=$
+
+$=1\cdot\frac{1}{12}+2\cdot\frac{1}{12}+3\cdot\frac{1}{12}+4\cdot\frac{1}{12}+5\cdot\frac{1}{12}+6\cdot\frac{1}{12}+7\cdot\frac{1}{12}+8\cdot\frac{1}{12}+9\cdot\frac{1}{12}+10\cdot\frac{1}{12}+11\cdot\frac{1}{12}+12\cdot\frac{1}{12}=6,5$
+
+Y la función de varianza:
+
+$V(X)=E(X^2)-(E(X))^2$
+
+$E(X^2)=1^2\cdot\frac{1}{12}+2^2\cdot\frac{1}{12}+3^2\cdot\frac{1}{12}+4^2\cdot\frac{1}{12}+5^2\cdot\frac{1}{12}+6^2\cdot\frac{1}{12}+7^2\cdot\frac{1}{12}+8^2\cdot\frac{1}{12}+9^2\cdot\frac{1}{12}+10^2\cdot\frac{1}{12}+11^2\cdot\frac{1}{12}+12^2\cdot\frac{1}{12}=54,17$
+
+$(E(X))^2=6,5^2=42,25$
+
+$V(X)=54,17-42,25=11,92$
+
+$2.$
+
+La funcion de distribución vendrá definida como: $$
+F_X(x)=
+\left\{\begin{array}{lll}
+0 & \mbox{si }x<1
+\\
+\frac{1}{12} & \mbox{si }1\le x<2
+\\
+\frac{2}{12} & \mbox{si }2\le x<3
+\\
+\frac{3}{12} & \mbox{si }3\le x<4
+\\
+\frac{4}{12} & \mbox{si }4\le x<5
+\\
+\frac{5}{12} & \mbox{si }5\le x<6
+\\
+\frac{6}{12} & \mbox{si }6\le x<7
+\\
+\frac{7}{12} & \mbox{si }7\le x<8
+\\
+\frac{8}{12} & \mbox{si }8\le x<9
+\\
+\frac{9}{12} & \mbox{si }9\le x<10
+\\
+\frac{10}{12} & \mbox{si }10\le x<11
+\\
+\frac{11}{12} & \mbox{si }11\le x<12
+\\
+1 & \mbox{si }12\le x
+\end{array}\right. 
+$$
+
+El cuantil $0,4 \ge \frac{4}{12}=0,33...$ Por lo tanto será 4.
+
+$3.$ La función de distribución ventrá determinada por ser una Bernoulli
+geometrica si consideramos que sacar un 5 es acertar y el resto es
+fracasar, donde $p=\frac{1}{12}$ y $q=\frac{11}{12}$: $$
+F_Y(x)=
+\left\{\begin{array}{lll}
+0 & \mbox{si }x<0
+\\
+1-(1-\frac{1}{12})^1 & \mbox{si }k=0\le x<1
+\\
+1-(1-\frac{1}{12})^2 & \mbox{si }k=1\le x<2
+\\
+1-(1-\frac{1}{12})^3 & \mbox{si }k=2\le x<3
+\\
+1-(1-\frac{1}{12})^{k+1} & \mbox{si }k\le x<k+1
+\\
+\end{array}\right. 
+$$ $4.$ Lo mismo que el 1.
+
+## Problema 5
+
+La proporción de niños pelirrojos es 1 cada 100. En una ciudad se
+produjeron 500 nacimientos (independientes) nacimientos en 2020, modelad
+mediante una distribución binomial la variable $X$ = número de niños
+pelirrojos nacidos entre los 500 niños. Utilizad R para calcular de
+forma exacta
+
+1.  La probabilidad de que ninguno de los nacidos ese año sea pelirrojo.
+2.  La probabilidad de que nazcan más de 2 niños pelirrojos
+3.  Repetir los´cálculos con R utilizando una aproximación Poisson
+
+### Solución
+
+$B(n=500,p=0.01)$
+
+1.  La probabilidad de que ninguno de los nacidos ese año sea pelirrojo.
+
+$P(X=0)$ = $0.01^0*(1-0.01)^500$ = $0.006570483$
+
+2.  La probabilidad de que nazcan más de 2 niños pelirrojos.
+
+    $P(X>2)$ = $1-P(X\le2)$ = $0.01^0*(1-0.01)^500$ +
+    $500*0.01^1*(1-0.01)^499$ + $124750*0.01^2*(1-0.01)^498$ =
+    $0.1233858$
+
+$P(X>2)$ = $1-P(X\le2)$ = $1-0.1233858$ = $0.8766142$
+
+3.  Repetir los cálculos con R utilizando una aproximación Poisson.
+
+$\lambda = 500*(1/100)=5$
+
+3.1 $P(X=0)$ = $exp(-5)$ = $0.006737947$
+
+3.2 $P(X>2)$ = $1-P(X\le2)$ = $1-((exp(-5))+(5*exp(-5))+(25/2*exp(-5)))$
+= $0.875348$
+
+1.  **En R**
+
+        ```{r}
+        dbinom(0,size=500,prob=0.01)
+        1-pbinom(2,size=500,prob=0.01)
+        dpois(0, lambda=5)
+        1-ppois(2,lambda=5)
+        ```
+
+## Problema 6
+
+Las consultas a una base dato llegan a un ritmo de medio $\lambda=5$
+peticiones por segundo. Sabemos que el nombre de peticiones que llegan
+en un segundo es una variable aleatoria que aproximadamente tienen una
+distribución de Poisson.
+
+1.  Calcular la probabilidad que lleguen más de 10 peticiones en un 3
+    segundos.
+2.  Calcular que entre una consulta y la siguiente pasen $0.5$ segundos.
+3.  Calcular el cuantil 0.5 de $X_{t=10}$ numero de peticiones en 10
+    segundos utilizad R
+
+### Solución
+
+1.  Calcular la probabilidad que lleguen más de 10 peticiones en un 3
+    segundos.
+
+    $P(X>10)$ = $1-P(X\le10)$ = $0.8815356$
+
+2.  Calcular que entre una consulta y la siguiente pasen más de $0.5$
+    segundos.
+
+    $P(X>0.5)$ = $1-P(X\le0.5) = 1-(1-exp(-5*0.5)$ = $0.082085$
+
+3.  Calcular el cuantil 0.5 de $X_{t=10}$ numero de peticiones en 10
+    segundos utilizad R
+
+$P(X\leq x0.5)\ge 0.5 = 50$
+
+1.  **En R**
+
+        ```{r}
+        1-ppois(10, lambda=15)
+        dpois(0,lambda=2.5)
+        qpois(0.5,lambda=50)
+        ```
+
+## Problema 7
+
+Tenemos que elegir entre dos programas (Prog1 y Prog2), el objetivo es
+elegir el programa más rápido en tiempo de respuesta en nuestro cluster
+de ordenadores. El tiempo de ejecución del Prog1 se ha modelado según
+una $N(\mu_1=100, \sigma_1=300)$ (la probabilidad de un tiempo de
+ejecución negativo es despreciable) y en Prog2 según una
+$N(\mu_2=90, \sigma_2=300)$. Utilizad R para el cálculo final de las
+probabilidades de la normal.
+
+1.  ¿Qué Programa elegimos si queremos que el el 90% de los casos el
+    tiempo de respuesta sea menor ?
+2.  Calcular la probabilidad de que el tiempo de ejecución sea mayor que
+    130 para cada algoritmos.
+
+### Solución
+
+1\.
+
+Como el enunciado nos pide el 90% de los casos, emplearemos la funcion
+*qnorm* de R para calcular el percentil 0,9.
+
+```{r}
+Q1=qnorm(0.9,100,300)
+Q2=qnorm(0.9,90,300)
+print(Q1)
+print(Q2)
+
+```
+
+Emplearemos el programa Prog2 puesto que su tiempo de ejecución en
+relación al percentil es inferior y por ello en un 90% de los casos
+tendrá un tiempo de ejecución menor.
+
+2\.
+
+**A)**
+
+Si Prog1 $N(\mu_1=100, \sigma_1=300)$ entonces:
+
+$P(Z>130)$ = $0.4601722$
+
+**B)**
+
+Si Prog2 $N(\mu_1=90, \sigma_1=300)$ entonces:
+
+$P(Z>130)$ = $0.4469649$
+
+**En R**
+
+    ```{r}
+    P1=1-pnorm(130,100,300)
+    P2=1-pnorm(130,90,300)
+    print(P1)
+    print(P2)
+    ```
+
+## Problema 8
+
+En la NBA el [José
+Calderón](https://es.wikipedia.org/wiki/Jos%C3%A9_Manuel_Calder%C3%B3n)
+fue en la temporada [2008-09 el jugador de
+baloncesto](https://es.wikipedia.org/wiki/L%C3%ADderes_en_porcentaje_de_tiros_libres_de_la_NBA)
+con mejor porcentaje tiros libres anotados un 98.05%.
+
+Justificar los cálculos con notación matemática y haced el cálculo final
+con R.
+
+1.  ¿Cual es el valor esperando y la varianza del número tiros hasta
+    aceptar los 10 tiros libres?
+2.  ¿Cuál es la probabilidad de que acierte al menos 40 tiros libres de
+    forma consecutiva.
+3.  ¿Cuál es la probabilidad de que haga una serie de 100 tiros hasta
+    obtener el tercer fallo?
+
+### Solución
+
+Este problema será una binomial negativa, cuya probabilidad de acierto
+(p) serà del 0,9805 y nuestra V.A. serán los aciertos.
+
+$P(acierto)=0,9805$
+
+$1.$ Las funciones de valor esperado y varianza están determinadas por
+ser una Bernoulli binomial negativa.Además, hay que tener en cuenta de
+que $n=10$ para este caso. En nuestro caso:
+
+$$
+E(X)=\frac{n\cdot(1-p)}{p}=\frac{10\cdot(1-0,9805)}{0,9805}= 0,1988781
+$$
+
+$$
+V(X)=n\cdot\frac{1-p}{p^2}=10\cdot\frac{1-0,9805}{0,9805^2}=
+0,2028334
+$$ $2.$ La probabilidad de que acierte al menos 40 tiros de forma
+consecutiva se puede traducir como la probabilidad de que su primer
+fallo sea el numero 41, por lo tanto, que sea mayor de 40. Esto deriva a
+una Bernoulli geométrica. Para este ejemplo tomaremos la X como fallo y
+no acierto:
+
+$$
+P(x>40)=1-P(x\le40)=1-F_X(40)=1-(1-(1-p)^{40+1})=(1-p)^{40+1}=(1-(1-0,9805))^{40+1}=0,4460171
+$$ O también representado en R:
+
+```{r}
+1-pgeom(40,prob=1-0.9805)
+```
+
+$3.$ La probabilidad de que haga una serie de 100 tiros hasta obtener el
+tercer fallo es equivalente a hacer 97 aciertos en 99 tiros y que el
+numero 100 sea el tercer fallo. Por lo tanto, una Bernoulli binomial:
+
+$$
+P(X=97)= \begin{pmatrix}n\\x\end{pmatrix}\cdot p^x\cdot(1-p)^{n-x}=4851\cdot 0,9805^{97}\cdot(1-0,9805)^{99-97}=
+0,2730974
+$$ O también representado en R:
+
+```{r}
+dbinom(97,size = 99,prob = 0.9805)
+```
