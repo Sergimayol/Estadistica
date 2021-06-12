@@ -58,8 +58,7 @@ data$distrito=gsub(".*/","",data$distrito)
 #se hace un display de las primeras filas y columnas de 'data'
 head(data)
 
-#se borra el dataframe inicial de la memoria
-(data_city) 
+#(data_city) 
 ```
 
 ## Solución ejercicio 1
@@ -154,7 +153,33 @@ sol.test$conf.int
 ```
 
 ## Solución ejercicio 9
+Apartado a:
+Al incio, cuando importamos el dataframe ya omitimos todos los valores NA.
+```{r ej9a}
 
-```{r ej9}
+```
+Apartado b:
+```{r ej9b}
+breaks_precio=fivenum(data$precio)
+breaks_precio
 
+breaks_score=fivenum(data$puntuacion_opiniones)
+breaks_score
+
+clases_precio=cut(data$precio,breaks=5)
+table(clases_precio)
+#Ya que en breaks_precio se repiten los dos últimos da error, por lo que tenemos que seleccionar manualmente el número de breaks que deseamos.
+clases_score=cut(data$puntuacion_opiniones,breaks=5)
+table(clases_score)
+```
+Apartado c:
+```{r ej9c}
+#table(clases_score)
+#table(clases_precio)
+tabla=table(clases_precio,clases_score)
+tabla
+```
+Apartado d:
+```{r ej9d}
+chisq.test(tabla)
 ```
