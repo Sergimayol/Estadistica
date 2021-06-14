@@ -29,12 +29,17 @@ require(knitr)
 require(ggplot2)
 require(readr)
 require(dplyr)
+require(norstest)
 ```
 ```{r Inicializacion}
 data_city=read_csv("listings.csv", col_types = cols())
+data_city2=read_csv("listings2.csv", col_types = cols())
 data_city$price=as.numeric(gsub(pattern="[\\$]|[,]",replacement="",data_city$price))
+data_city2$price=as.numeric(gsub(pattern="[\\$]|[,]",replacement="",data_city2$price))
 
 data=na.omit(data_city %>% select(id,host_id,neighbourhood,neighbourhood_cleansed,property_type,accommodates,bedrooms,beds,price,minimum_nights,availability_365,number_of_reviews,review_scores_rating))
+data2=na.omit(data_city2%>%
+select(price))
 
 head(data)
 
@@ -58,7 +63,6 @@ data$distrito=gsub(".*/","",data$distrito)
 #se hace un display de las primeras filas y columnas de 'data'
 head(data)
 
-#(data_city) 
 ```
 
 ## Solución ejercicio 1
@@ -130,26 +134,39 @@ sol.test$conf.int
 
 ## Solución ejercicio 5
 
+Para calcular el intervalo de confianza, utilizaremos la siguiente función:
+
 ```{r ej5}
+t.test(data$puntuacion_opiniones,alternative="two.sided",conf.level = 0.95)$conf.int
 
 ```
 
 ## Solución ejercicio 6
 
+Para calcular el contraste de hipótesis para decidir si las desviaciones típicas de los precios de las dos ciudades son iguales o diferentes, utilizaremos la función test de la varianza, que está directamente relacionada con la desviación típica.
+
 ```{r ej6}
 
+var.test(data$precio,data2$price,alternative = "two.sided")
+
 ```
+Como el p-valor del contraste ha sido prácticamente cero, concluimos que tenemos evidencias suficientes para afirmar que las desviaciones típicas de los precios de ambas ciudades son diferentes.
 
 ## Solución ejercicio 7
 
 ```{r ej7}
-
+t.test(data$precio,data2$price,paired=FALSE, var.equal=FALSE, conf.level=0.95, alternative="less")
+var.test(data$precio,data2$price)
+ciudad=c(rep("Val",dim(data)[1]),rep("VW", dim(data2)[1]))
+precio=c(data$precio, data2$price)
+car::leveneTest(precio~ciudad)
 ```
 
 ## Solución ejercicio 8
 
 ```{r ej8}
-
+library(nortest)
+lillie.test(data$precio)
 ```
 
 ## Solución ejercicio 9

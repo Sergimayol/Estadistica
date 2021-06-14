@@ -199,22 +199,27 @@ knitr::opts_chunk$set(echo = TRUE)
 require(knitr)
 require(ggplot2)
 require(readr)
-require(dplyr)</code></pre>
+require(dplyr)
+require(norstest)</code></pre>
 <pre class="r"><code>data_city=read_csv(&quot;listings.csv&quot;, col_types = cols())
+data_city2=read_csv(&quot;listings2.csv&quot;, col_types = cols())
 data_city$price=as.numeric(gsub(pattern=&quot;[\\$]|[,]&quot;,replacement=&quot;&quot;,data_city$price))
+data_city2$price=as.numeric(gsub(pattern=&quot;[\\$]|[,]&quot;,replacement=&quot;&quot;,data_city2$price))
 
 data=na.omit(data_city %&gt;% select(id,host_id,neighbourhood,neighbourhood_cleansed,property_type,accommodates,bedrooms,beds,price,minimum_nights,availability_365,number_of_reviews,review_scores_rating))
+data2=na.omit(data_city2%&gt;%
+select(price))
 
 head(data)</code></pre>
 <pre><code>## # A tibble: 6 x 13
-##       id host_id neighbourhood  neighbourhood_clea~ property_type   accommodates
-##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;               &lt;chr&gt;                  &lt;dbl&gt;
-## 1  24963   98203 Shanghai, Chi~ &lt;U+5F90&gt;&lt;U+6C47&gt;&lt;U+533A&gt; / Xuhui Dis~ Entire apartme~            3
-## 2  24991   98203 Shanghai, Chi~ &lt;U+5F90&gt;&lt;U+6C47&gt;&lt;U+533A&gt; / Xuhui Dis~ Entire condomi~            4
-## 3 139828  681552 Shanghai, Chi~ &lt;U+666E&gt;&lt;U+9640&gt;&lt;U+533A&gt; / Putuo Dis~ Entire apartme~            2
-## 4 350728 1777552 Shanghai, Chi~ &lt;U+957F&gt;&lt;U+5B81&gt;&lt;U+533A&gt; / Changning~ Private room i~            1
-## 5 479517  681552 Shanghai, Chi~ &lt;U+9759&gt;&lt;U+5B89&gt;&lt;U+533A&gt; / Jing&#39;an D~ Entire apartme~            2
-## 6 479530  681552 Shanghai, Chi~ &lt;U+9759&gt;&lt;U+5B89&gt;&lt;U+533A&gt; / Jing&#39;an D~ Entire apartme~            3
+##       id host_id neighbourhood  neighbourhood_clean~ property_type  accommodates
+##    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;                &lt;chr&gt;                 &lt;dbl&gt;
+## 1  24963   98203 Shanghai, Chi~ &lt;U+5F90&gt;&lt;U+6C47&gt;&lt;U+~ Entire apartm~            3
+## 2  24991   98203 Shanghai, Chi~ &lt;U+5F90&gt;&lt;U+6C47&gt;&lt;U+~ Entire condom~            4
+## 3 139828  681552 Shanghai, Chi~ &lt;U+666E&gt;&lt;U+9640&gt;&lt;U+~ Entire apartm~            2
+## 4 350728 1777552 Shanghai, Chi~ &lt;U+957F&gt;&lt;U+5B81&gt;&lt;U+~ Private room ~            1
+## 5 479517  681552 Shanghai, Chi~ &lt;U+9759&gt;&lt;U+5B89&gt;&lt;U+~ Entire apartm~            2
+## 6 479530  681552 Shanghai, Chi~ &lt;U+9759&gt;&lt;U+5B89&gt;&lt;U+~ Entire apartm~            3
 ## # ... with 7 more variables: bedrooms &lt;dbl&gt;, beds &lt;dbl&gt;, price &lt;dbl&gt;,
 ## #   minimum_nights &lt;dbl&gt;, availability_365 &lt;dbl&gt;, number_of_reviews &lt;dbl&gt;,
 ## #   review_scores_rating &lt;dbl&gt;</code></pre>
@@ -248,7 +253,6 @@ head(data)</code></pre>
 ## 6 479530       681552 Shangha~ &quot; Jing&#39;a~ Entire apartment          3           1
 ## # ... with 6 more variables: camas &lt;dbl&gt;, precio &lt;dbl&gt;, noches_minimas &lt;dbl&gt;,
 ## #   disponibilidad_365 &lt;dbl&gt;, n_opiniones &lt;dbl&gt;, puntuacion_opiniones &lt;dbl&gt;</code></pre>
-<pre class="r"><code>#(data_city) </code></pre>
 </div>
 <div id="solución-ejercicio-1" class="section level2">
 <h2>Solución ejercicio 1</h2>
@@ -355,15 +359,76 @@ pvalor</code></pre>
 </div>
 <div id="solución-ejercicio-5" class="section level2">
 <h2>Solución ejercicio 5</h2>
+<p>Para calcular el intervalo de confianza, utilizaremos la siguiente función:</p>
+<pre class="r"><code>t.test(data$puntuacion_opiniones,alternative=&quot;two.sided&quot;,conf.level = 0.95)$conf.int</code></pre>
+<pre><code>## [1] 95.33114 95.64755
+## attr(,&quot;conf.level&quot;)
+## [1] 0.95</code></pre>
 </div>
 <div id="solución-ejercicio-6" class="section level2">
 <h2>Solución ejercicio 6</h2>
+<p>Para calcular el contraste de hipótesis para decidir si las desviaciones típicas de los precios de las dos ciudades son iguales o diferentes, utilizaremos la función test de la varianza, que está directamente relacionada con la desviación típica.</p>
+<pre class="r"><code>var.test(data$precio,data2$price,alternative = &quot;two.sided&quot;)</code></pre>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  data$precio and data2$price
+## F = 30.582, num df = 14639, denom df = 36904, p-value &lt; 2.2e-16
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  29.76777 31.42413
+## sample estimates:
+## ratio of variances 
+##           30.58228</code></pre>
+<p>Como el p-valor del contraste ha sido prácticamente cero, concluimos que tenemos evidencias suficientes para afirmar que las desviaciones típicas de los precios de ambas ciudades son diferentes.</p>
 </div>
 <div id="solución-ejercicio-7" class="section level2">
 <h2>Solución ejercicio 7</h2>
+<pre class="r"><code>t.test(data$precio,data2$price,paired=FALSE, var.equal=FALSE, conf.level=0.95, alternative=&quot;less&quot;)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  data$precio and data2$price
+## t = 35.437, df = 15020, p-value = 1
+## alternative hypothesis: true difference in means is less than 0
+## 95 percent confidence interval:
+##     -Inf 495.334
+## sample estimates:
+## mean of x mean of y 
+##  621.9206  148.5593</code></pre>
+<pre class="r"><code>var.test(data$precio,data2$price)</code></pre>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  data$precio and data2$price
+## F = 30.582, num df = 14639, denom df = 36904, p-value &lt; 2.2e-16
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  29.76777 31.42413
+## sample estimates:
+## ratio of variances 
+##           30.58228</code></pre>
+<pre class="r"><code>ciudad=c(rep(&quot;Val&quot;,dim(data)[1]),rep(&quot;VW&quot;, dim(data2)[1]))
+precio=c(data$precio, data2$price)
+car::leveneTest(precio~ciudad)</code></pre>
+<pre><code>## Warning in leveneTest.default(y = y, group = group, ...): group coerced to
+## factor.</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##          Df F value    Pr(&gt;F)    
+## group     1  1288.5 &lt; 2.2e-16 ***
+##       51543                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="solución-ejercicio-8" class="section level2">
 <h2>Solución ejercicio 8</h2>
+<pre class="r"><code>library(nortest)
+lillie.test(data$precio)</code></pre>
+<pre><code>## 
+##  Lilliefors (Kolmogorov-Smirnov) normality test
+## 
+## data:  data$precio
+## D = 0.36267, p-value &lt; 2.2e-16</code></pre>
 </div>
 <div id="solución-ejercicio-9" class="section level2">
 <h2>Solución ejercicio 9</h2>
