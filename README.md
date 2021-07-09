@@ -1,2 +1,2 @@
 # Estadistica
-Proyecto final de la asignatura estadística de primero de la UIB
+Proyectos y talleres de la asignatura Estadística de primero de la UIB
